@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardenal Drones | Visión Aérea Inteligente</title>
+  <meta name="description" content="Servicios profesionales de filmación y fotografía aérea con drones en Gualeguaychú y Entre Ríos. Piloto habilitado por ANAC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #ffffff;
+      --bg-surface: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --primary: #d90429;
+      --primary-hover: #b80020;
+      --primary-light: #fff0f1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.07);
+      --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.1);
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background-color: var(--bg-body); color: var(--text-main); font-family: var(--font-main); }
+    body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; line-height: 1.6; }
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    
+    /* Navbar */
+    .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1rem 0; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-color); transition: var(--transition); }
+    .navbar.scrolled { padding: 0.65rem 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+    .nav-content { display: flex; justify-content: space-between; align-items: center; }
+    
+    /* Logo + Nombre al tope */
+    .brand-logo-link { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-logo-img { height: 54px; width: auto; object-fit: contain; display: block; transition: var(--transition); }
+    .navbar.scrolled .nav-logo-img { height: 44px; }
+    .nav-fallback-icon { font-size: 1.9rem; color: var(--primary); display: none; }
+    .nav-brand-text { font-family: var(--font-heading); font-size: 1.55rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; line-height: 1.1; display: flex; align-items: baseline; gap: 0.35rem; }
+    .nav-brand-text span { color: var(--primary); }
+    
+    .nav-links { display: flex; gap: 2.25rem; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.98rem; font-weight: 600; transition: var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    .nav-cta-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); color: #ffffff !important; padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 700 !important; box-shadow: 0 4px 15px rgba(217, 4, 41, 0.25); }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-main); font-size: 1.6rem; cursor: pointer; }
+    
+    /* Hero */
+    .hero { padding: 9.5rem 0 5.5rem; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); position: relative; overflow: hidden; border-bottom: 1px solid var(--border-color); }
+    .hero-glow { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(217, 4, 41, 0.06) 0%, transparent 70%); top: -50px; right: -50px; border-radius: 50%; pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-light); border: 1px solid rgba(217, 4, 41, 0.25); padding: 0.4rem 1.1rem; border-radius: 50px; font-size: 0.88rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; text-transform: uppercase; }
+    .hero-title { font-family: var(--font-heading); font-size: 3.4rem; line-height: 1.12; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1.2px; color: #0f172a; }
+    .hero-title .highlight { color: var(--primary); }
+    .hero-desc { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 540px; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.85rem; border-radius: 50px; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: var(--transition); border: none; font-family: var(--font-main); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); color: #ffffff; box-shadow: 0 6px 20px rgba(217, 4, 41, 0.25); }
+    .btn-outline { background: #ffffff; color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .btn-outline:hover { background: var(--bg-surface); border-color: #cbd5e1; transform: translateY(-2px); }
+    
+    /* Hero Card */
+    .hero-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.25rem; box-shadow: var(--shadow-md); position: relative; }
+    .hero-card-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
+    .card-title-box h3 { font-family: var(--font-heading); font-size: 1.25rem; color: var(--text-main); font-weight: 700; }
+    .card-title-box p { font-size: 0.85rem; color: var(--text-muted); }
+    .card-top-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.35rem; border: 1px solid rgba(217, 4, 41, 0.2); }
+    
+    .drone-specs-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .spec-item { display: flex; align-items: center; gap: 1rem; }
+    .spec-icon { width: 42px; height: 42px; background: var(--bg-surface); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.1rem; border: 1px solid var(--border-color); flex-shrink: 0; }
+    .spec-info h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+    .spec-info p { font-size: 0.85rem; color: var(--text-muted); }
+    .live-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 0.35rem 0.75rem; border-radius: 50px; font-weight: 700; margin-top: 1.5rem; }
+    .live-dot { width: 7px; height: 7px; background: #10b981; border-radius: 50%; }
+    
+    /* Stats */
+    .trust-strip { padding: 3rem 0; background: #ffffff; border-bottom: 1px solid var(--border-color); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .stat-item h3 { font-family: var(--font-heading); font-size: 2.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem; }
+    .stat-item h3 span { color: var(--primary); }
+    .stat-item p { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    
+    /* Titulares */
+    .section-header { text-align: center; max-width: 650px; margin: 0 auto 4rem; }
+    .section-tag { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; display: block; }
+    .section-title { font-family: var(--font-heading); font-size: 2.4rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); letter-spacing: -0.5px; }
+    .section-desc { color: var(--text-muted); font-size: 1.05rem; }
+    
+    /* Servicios */
+    .services-section { padding: 6.5rem 0; background: var(--bg-surface); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.75rem; }
+    .service-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2.25rem 1.75rem; transition: var(--transition); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); }
+    .service-card:hover { transform: translateY(-6px); border-color: #cbd5e1; box-shadow: var(--shadow-md); }
+    .service-icon { width: 56px; height: 56px; background: var(--primary-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(217, 4, 41, 0.15); transition: var(--transition); }
+    .service-card:hover .service-icon { background: var(--primary); color: #ffffff; }
+    .service-card h3 { font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 0.85rem; font-weight: 700; color: var(--text-main); }
+    .service-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+    .service-features { list-style: none; margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .service-features li { font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.6rem; }
+    .service-features li i { color: var(--primary); font-size: 0.8rem; }
+    .service-btn { color: var(--primary); text-decoration: none; font-size: 0.95rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; }
+    
+    /* Tecnología */
+    .tech-section { padding: 6.5rem 0; background: #ffffff; }
+    .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .tech-badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .tech-box { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; }
+    .tech-box h4 { font-size: 1.05rem; color: var(--text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tech-box h4 i { color: var(--primary); }
+    .tech-box p { font-size: 0.88rem; color: var(--text-muted); }
+    .anac-card { background: linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%); border: 1px solid rgba(217, 4, 41, 0.25); border-radius: var(--radius-lg); padding: 2.75rem; box-shadow: var(--shadow-md); }
+    .anac-header { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; }
+    .anac-icon { font-size: 2.75rem; color: var(--primary); }
+    .anac-header h3 { font-family: var(--font-heading); font-size: 1.45rem; color: var(--text-main); }
+    .anac-header span { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    .anac-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.75rem; line-height: 1.65; }
+    
+    /* Portafolio */
+    .portfolio-section { padding: 6.5rem 0; background: var(--bg-surface); }
+    .gallery-filter { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .filter-btn { background: #ffffff; color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.55rem 1.4rem; border-radius: 50px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm); }
+    .filter-btn.active, .filter-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .gallery-item { position: relative; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16 / 10; background: #ffffff; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); cursor: pointer; }
+    .gallery-img { width: 100%; height: 100%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: transform 0.5s ease; }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item:hover .gallery-img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%); padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: var(--transition); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { font-size: 0.75rem; color: #ff8fa3; font-weight: 700; text-transform: uppercase; }
+    .gallery-overlay h4 { font-size: 1.1rem; color: #ffffff; font-weight: 600; }
+    
+    /* Contacto */
+    .contact-section { padding: 6.5rem 0; background: #ffffff; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: start; }
+    .contact-info-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.75rem; }
+    .contact-info-card h3 { font-family: var(--font-heading); font-size: 1.7rem; margin-bottom: 1rem; color: var(--text-main); }
+    .contact-info-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.35rem; }
+    .contact-detail-item { display: flex; align-items: center; gap: 1.1rem; }
+    .contact-detail-icon { width: 46px; height: 46px; background: #ffffff; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .contact-detail-text span { display: block; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
+    .contact-detail-text a, .contact-detail-text strong { color: var(--text-main); text-decoration: none; font-size: 1rem; font-weight: 600; }
+    .contact-form-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.75rem; box-shadow: var(--shadow-md); }
+    .form-group { margin-bottom: 1.35rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-label { display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+    .form-control { width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; color: var(--text-main); font-family: var(--font-main); font-size: 0.95rem; }
+    .form-control:focus { outline: none; border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.12); }
+    textarea.form-control { resize: vertical; min-height: 110px; }
+    
+    /* WhatsApp */
+    .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: #ffffff; width: 62px; height: 62px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45); z-index: 999; text-decoration: none; }
+    
+    /* Footer */
+    .footer { background: #0f172a; color: #ffffff; padding: 4.5rem 0 2.5rem; }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2.5rem; }
+    .footer-brand h4 { font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; color: #ffffff; }
+    .footer-brand h4 span { color: var(--primary); }
+    .footer-brand p { color: #94a3b8; font-size: 0.88rem; margin-top: 0.25rem; }
+    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-btn { width: 42px; height: 42px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem; color: #94a3b8; }
+    
+    @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-desc { margin: 0 auto 2.5rem; } .hero-actions { justify-content: center; } .tech-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .contact-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-md); } .mobile-menu-btn { display: block; } .hero-title { font-size: 2.5rem; } .form-row { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } .nav-logo-img { height: 42px; } .nav-brand-text { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+  <a href="https://wa.me/5491162595448?text=Hola%20Cardenal%20Drones,%20quisiera%20consultar%20por%20un%20servicio" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <header class="navbar" id="navbar">
+    <div class="container nav-content">
+      <a href="#" class="brand-logo-link">
+        <img src="logo.png" alt="Logo Cardenal Drones" class="nav-logo-img" onerror="this.style.display='none'; document.getElementById('navFallbackIcon').style.display='inline-block';">
+        <i id="navFallbackIcon" class="fas fa-feather-alt nav-fallback-icon"></i>
+        <div class="nav-brand-text">
+          Cardenal <span>Drones</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#tecnologia">Tecnología & Seguridad</a></li>
+        <li><a href="#galeria">Portafolio</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#contacto" class="nav-cta-btn">Cotizar Vuelo</a></li>
+      </ul>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-certificate"></i> Piloto Certificado ANAC</div>
+        <h1 class="hero-title">Visión Aérea <span class="highlight">Inteligente</span> para tus Proyectos</h1>
+        <p class="hero-desc">Producción audiovisual en alta definición, relevamiento agroindustrial e inspección técnica con drones en Gualeguaychú y Entre Ríos.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Solicitar Presupuesto</a>
+          <a href="#servicios" class="btn btn-outline"><i class="fas fa-drone"></i> Explorar Servicios</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div class="card-title-box">
+              <h3>Operaciones Aéreas VANT</h3>
+              <p>Seguridad y Calidad Cinematográfica</p>
+            </div>
+            <div class="card-top-icon">
+              <i class="fas fa-satellite-dish"></i>
+            </div>
+          </div>
+          <div class="drone-specs-list">
+            <div class="spec-item"><div class="spec-icon"><i class="fas fa-camera"></i></div><div class="spec-info"><h4>Resolución 4K HDR</h4><p>Grabación profesional y fotografía de alta definición</p></div></div>
+            <div class="spec-item"><div class="spec-icon"><i class="fas fa-shield-alt"></i></div><div class="spec-info"><h4>Habilitación Oficial ANAC</h4><p>Vuelos reglamentados y cobertura de seguro VANT</p></div></div>
+            <div class="spec-item"><div class="spec-icon"><i class="fas fa-map-marker-alt"></i></div><div class="spec-info"><h4>Gualeguaychú y Región</h4><p>Disponibilidad operativa en Entre Ríos y alrededores</p></div></div>
+          </div>
+          <div class="live-badge"><div class="live-dot"></div> Disponible para nuevos proyectos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container stats-grid">
+      <div class="stat-item"><h3>4K <span>HDR</span></h3><p>Calidad Ultra HD</p></div>
+      <div class="stat-item"><h3>ANAC <span>OK</span></h3><p>Piloto Habilitado</p></div>
+      <div class="stat-item"><h3>100% <span>Legal</span></h3><p>Seguro & Normativa</p></div>
+      <div class="stat-item"><h3>Rápido <span>Entrega</span></h3><p>Material Raw y Editado</p></div>
+    </div>
+  </section>
+
+  <section class="services-section" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Soluciones a Medida</span>
+        <h2 class="section-title">Servicios Aéreos Profesionales</h2>
+        <p class="section-desc">Combinamos tecnología de vanguardia y experiencia de vuelo para entregar imágenes de máximo impacto visual y precisión técnica.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-industry"></i></div>
+          <h3>Agro & Industria</h3>
+          <p>Relevamiento de plantas fabriles, silos, acopios, campos y logística. Monitoreo visual de infraestructura a gran escala.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Tomas de acopios y plantas</li><li><i class="fas fa-check"></i> Inspección de techos y silos</li><li><i class="fas fa-check"></i> Registro logístico y transporte</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Agro%20e%20Industria" class="service-btn" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-video"></i></div>
+          <h3>Audiovisual & Redes</h3>
+          <p>Tomas dinámicas para spots publicitarios, reels, cobertura de eventos, turismo y contenido institucional de alto impacto.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Video promocional en 4K</li><li><i class="fas fa-check"></i> Formatos horizontal y vertical</li><li><i class="fas fa-check"></i> Perfil de color D-Log M</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Audiovisual" class="service-btn" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-building"></i></div>
+          <h3>Obras & Bienes Raíces</h3>
+          <p>Seguimiento periódico del avance de obras civiles, loteos, desarrollos inmobiliarios y arquitectura.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Avance cronológico de obra</li><li><i class="fas fa-check"></i> Perspectivas para venta de lotes</li><li><i class="fas fa-check"></i> Registro para estudios y clientes</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20para%20Obras" class="service-btn" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-tree"></i></div>
+          <h3>Ambiente & Paisaje</h3>
+          <p>Registros aéreos responsables para reservas naturales, proyectos ambientales, divulgación y turismo sostenible.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Vuelo de bajo impacto ambiental</li><li><i class="fas fa-check"></i> Documentación de biodiversidad</li><li><i class="fas fa-check"></i> Fotografía paisajística HDR</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Ambiental%20y%20Paisaje" class="service-btn" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-section" id="tecnologia">
+    <div class="container">
+      <div class="tech-grid">
+        <div>
+          <span class="section-tag">Tecnología & Seguridad</span>
+          <h2 class="section-title">Operaciones Seguras y Certificadas</h2>
+          <p class="section-desc">Cada vuelo es planificado cumpliendo estrictos estándares de seguridad operacional. Garantizamos tranquilidad legal y calidad técnica superior.</p>
+          <div class="tech-badges">
+            <div class="tech-box"><h4><i class="fas fa-microchip"></i> DJI Air 3S Tech</h4><p>Sensores omnidireccionales nocturnos y doble cámara.</p></div>
+            <div class="tech-box"><h4><i class="fas fa-file-contract"></i> Seguro VANT</h4><p>Póliza de responsabilidad civil vigente para operaciones.</p></div>
+          </div>
+        </div>
+        <div class="anac-card">
+          <div class="anac-header"><div class="anac-icon"><i class="fas fa-passport"></i></div><div><h3>Piloto Habilitado ANAC</h3><span>Administración Nacional de Aviación Civil</span></div></div>
+          <p>Contamos con la licencia oficial de operador y piloto de drones emitida por ANAC (Argentina), asegurando que todas las tomas aéreas se efectúen bajo las normativas vigentes.</p>
+          <a href="#contacto" class="btn btn-outline" style="width: 100%; justify-content: center;"><i class="fas fa-check-circle"></i> Solicitar Verificación & Presupuesto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-section" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Nuestros Trabajos</span>
+        <h2 class="section-title">Portafolio Visual</h2>
+        <p class="section-desc">Explora algunas de las perspectivas y proyectos realizados.</p>
+      </div>
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="eventos">Eventos</button>
+        <button class="filter-btn" data-filter="agro">Agro & Industria</button>
+        <button class="filter-btn" data-filter="obras">Obras & Arquitectura</button>
+        <button class="filter-btn" data-filter="paisaje">Naturaleza & Paisajes</button>
+      </div>
+      <div class="gallery-grid">
+        <!-- Eventos -->
+        <div class="gallery-item" data-category="eventos">
+          <div class="gallery-img">
+            <img src="Eventos1.jpg" alt="Eventos Masivos y Desfiles" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Audiovisual</span>
+            <h4>Eventos Masivos & Desfiles</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="eventos">
+          <div class="gallery-img">
+            <img src="Eventos2.jpg" alt="Competencias y Maratones" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Deportivo</span>
+            <h4>Competencias & Maratones</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="eventos">
+          <div class="gallery-img">
+            <img src="Eventos3.jpg" alt="Escenarios y Festivales" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Espectáculos</span>
+            <h4>Escenarios & Festivales</h4>
+          </div>
+        </div>
+
+        <!-- Agro & Industria -->
+        <div class="gallery-item" data-category="agro">
+          <div class="gallery-img">
+            <img src="Agro1.jpg" alt="Relevamiento de Campo y Pasturas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Agro</span>
+            <h4>Relevamiento de Campo & Pasturas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="agro">
+          <div class="gallery-img">
+            <img src="Agro2.jpg" alt="Monitoreo de Lotes y Parcelas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Agro</span>
+            <h4>Monitoreo de Lotes & Parcelas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="agro">
+          <div class="gallery-img">
+            <img src="Inustria1.jpg" alt="Inspección de Torres y Líneas Eléctricas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Industria</span>
+            <h4>Inspección de Torres & Líneas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="agro">
+          <div class="gallery-img">
+            <img src="Industria2.jpg" alt="Monitoreo de Estructuras en Altura" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Industria</span>
+            <h4>Monitoreo de Estructuras</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="agro">
+          <div class="gallery-img">
+            <img src="Industria3.jpg" alt="Plantas Operativas y Logística" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Industria</span>
+            <h4>Plantas Operativas & Logística</h4>
+          </div>
+        </div>
+
+        <!-- Obras & Arquitectura -->
+        <div class="gallery-item" data-category="obras">
+          <div class="gallery-img">
+            <img src="Arquitectura1.jpg" alt="Seguimiento de Obra y Cimientos" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Construcción</span>
+            <h4>Seguimiento de Obra & Cimientos</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="obras">
+          <div class="gallery-img">
+            <img src="Arquitectura2.jpg" alt="Propiedades y Desarrollos Suburbanos" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Bienes Raíces</span>
+            <h4>Propiedades & Desarrollos</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="obras">
+          <div class="gallery-img">
+            <img src="Arquitectura3.jpg" alt="Detalle e Inspección en Altura" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Inspección</span>
+            <h4>Detalle e Inspección en Altura</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="obras">
+          <div class="gallery-img">
+            <img src="Construccion1.jpg" alt="Relevamiento de Cúpulas y Fachadas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Arquitectura</span>
+            <h4>Relevamiento de Cúpulas & Fachadas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="obras">
+          <div class="gallery-img">
+            <img src="Construccion2.jpg" alt="Relevamiento Cenital de Predio" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Mapeo Técnico</span>
+            <h4>Relevamiento Cenital de Predio</h4>
+          </div>
+        </div>
+
+        <!-- Naturaleza & Paisajes -->
+        <div class="gallery-item" data-category="paisaje">
+          <div class="gallery-img">
+            <img src="Flora1.jpg" alt="Registro de Aves Autóctonas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Fauna & Reserva</span>
+            <h4>Registro de Aves Autóctonas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="paisaje">
+          <div class="gallery-img">
+            <img src="Flora2.jpg" alt="Cursos de Agua y Riberas" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Paisaje</span>
+            <h4>Cursos de Agua & Riberas</h4>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="paisaje">
+          <div class="gallery-img">
+            <img src="Flora3.jpg" alt="Playas y Ecosistema Ribereño" loading="lazy">
+          </div>
+          <div class="gallery-overlay">
+            <span>Naturaleza</span>
+            <h4>Playas & Ecosistema Ribereño</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <span class="section-tag">Hablemos</span>
+          <h3>¿Tenés un proyecto en mente?</h3>
+          <p>Contactanos directamente para coordinar un vuelo, consultar disponibilidad en Entre Ríos o recibir una cotización a medida.</p>
+          <div class="contact-details">
+            <div class="contact-detail-item"><div class="contact-detail-icon"><i class="fab fa-whatsapp"></i></div><div class="contact-detail-text"><span>WhatsApp / Teléfono</span><a href="https://wa.me/5491162595448" target="_blank">+54 9 11 6259-5448</a></div></div>
+            <div class="contact-detail-item"><div class="contact-detail-icon"><i class="fas fa-envelope"></i></div><div class="contact-detail-text"><span>Email</span><a href="mailto:cardenal.drones@gmail.com">cardenal.drones@gmail.com</a></div></div>
+            <div class="contact-detail-item"><div class="contact-detail-icon"><i class="fab fa-instagram"></i></div><div class="contact-detail-text"><span>Instagram</span><a href="https://instagram.com/cardenaldrones" target="_blank">@cardenaldrones</a></div></div>
+            <div class="contact-detail-item"><div class="contact-detail-icon"><i class="fas fa-location-dot"></i></div><div class="contact-detail-text"><span>Ubicación</span><strong>Gualeguaychú, Entre Ríos</strong></div></div>
+          </div>
+        </div>
+        <div class="contact-form-card">
+          <form id="quoteForm">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="nombre">Tu Nombre / Empresa</label><input type="text" id="nombre" class="form-control" placeholder="Ej: Mario Solano" required></div>
+              <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" placeholder="Ej: 11 6259 5448" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control"><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
+              <div class="form-group"><label class="form-label" for="ubicacion">Localidad del Proyecto</label><input type="text" id="ubicacion" class="form-control" placeholder="Ej: Gualeguaychú"></div>
+            </div>
+            <div class="form-group"><label class="form-label" for="mensaje">Detalles del Proyecto</label><textarea id="mensaje" class="form-control" placeholder="Describe brevemente qué necesitas filmar o fotografiar..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> Enviar Consulta por WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h4>Cardenal <span>Drones</span></h4>
+          <p>Visión Aérea Inteligente • Gualeguaychú, Entre Ríos</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#tecnologia">Seguridad ANAC</a></li>
+          <li><a href="#galeria">Portafolio</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="https://instagram.com/cardenaldrones" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/5491162595448" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:cardenal.drones@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 Cardenal Drones – Visión Aérea Inteligente. Gualeguaychú, Entre Ríos. Todos los derechos reservados.</p></div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+    document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('open'); }); });
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filterValue = btn.getAttribute('data-filter');
+        galleryItems.forEach(item => { item.style.display = (filterValue === 'all' || item.getAttribute('data-category') === filterValue) ? 'block' : 'none'; });
+      });
+    });
+    const quoteForm = document.getElementById('quoteForm');
+    quoteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const servicio = document.getElementById('servicio').value;
+      const ubicacion = document.getElementById('ubicacion').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+      const text = `Hola Cardenal Drones!%0A%0A*Consulta de Presupuesto:*%0A- *Nombre:* ${encodeURIComponent(nombre)}%0A- *Teléfono:* ${encodeURIComponent(telefono)}%0A- *Servicio:* ${encodeURIComponent(servicio)}%0A- *Ubicación:* ${encodeURIComponent(ubicacion || 'A definir')}%0A- *Mensaje:* ${encodeURIComponent(mensaje || 'Sin detalles adicionales')}`;
+      window.open(`https://wa.me/5491162595448?text=${text}`, '_blank');
+    });
+  </script>
+</body>
+</html>
