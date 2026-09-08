@@ -364,8 +364,7 @@
         <p class="section-desc">Explora algunas de las perspectivas y proyectos realizados.</p>
       </div>
       <div class="gallery-filter">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="fotogrametria">Fotogrametría</button>
+        <button class="filter-btn active" data-filter="fotogrametria">Fotogrametría</button>
         <button class="filter-btn" data-filter="eventos">Eventos</button>
         <button class="filter-btn" data-filter="agro">Agro &amp; Industria</button>
         <button class="filter-btn" data-filter="obras">Obras &amp; Arquitectura</button>
@@ -624,14 +623,18 @@
     document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('open'); }); });
     const filterBtns = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    function applyFilter(filterValue) {
+      galleryItems.forEach(item => { item.style.display = (item.getAttribute('data-category') === filterValue) ? 'block' : 'none'; });
+    }
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filterValue = btn.getAttribute('data-filter');
-        galleryItems.forEach(item => { item.style.display = (filterValue === 'all' || item.getAttribute('data-category') === filterValue) ? 'block' : 'none'; });
+        applyFilter(btn.getAttribute('data-filter'));
       });
     });
+    const initialFilterBtn = document.querySelector('.filter-btn.active');
+    if (initialFilterBtn) { applyFilter(initialFilterBtn.getAttribute('data-filter')); }
     const quoteForm = document.getElementById('quoteForm');
     const submitBtn = document.getElementById('submitBtn');
     const submitBtnText = document.getElementById('submitBtnText');
