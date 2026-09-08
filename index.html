@@ -133,10 +133,10 @@
     .filter-btn.active, .filter-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
     .gallery-item { position: relative; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16 / 10; background: #ffffff; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); cursor: pointer; }
-    .gallery-img { width: 100%; height: 100%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: transform 0.5s ease; }
+    .gallery-img { width: 100%; height: 100%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: transform 0.5s ease; position: relative; }
     .gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gallery-item:hover .gallery-img { transform: scale(1.05); }
-    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%); padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: var(--transition); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%); padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: var(--transition); z-index: 2; }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
     .gallery-overlay span { font-size: 0.75rem; color: #ff8fa3; font-weight: 700; text-transform: uppercase; }
     .gallery-overlay h4 { font-size: 1.1rem; color: #ffffff; font-weight: 600; }
@@ -212,7 +212,7 @@
       <div class="hero-content">
         <div class="hero-badge"><i class="fas fa-certificate"></i> Piloto Certificado ANAC</div>
         <h1 class="hero-title">Visión Aérea <span class="highlight">Inteligente</span> para tus Proyectos</h1>
-        <p class="hero-desc">Producción audiovisual en alta definición, relevamiento agroindustrial e inspección técnica con drones en Gualeguaychú y Entre Ríos.</p>
+        <p class="hero-desc">Producción audiovisual en alta definición, fotogrametría técnica con modelos 3D y nubes de puntos, relevamiento agroindustrial e inspección con drones en Gualeguaychú y Entre Ríos.</p>
         <div class="hero-actions">
           <a href="#contacto" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Solicitar Presupuesto</a>
           <a href="#servicios" class="btn btn-outline"><i class="fas fa-drone"></i> Explorar Servicios</a>
@@ -245,7 +245,7 @@
       <div class="stat-item"><h3>4K <span>HDR</span></h3><p>Calidad Ultra HD</p></div>
       <div class="stat-item"><h3>ANAC <span>OK</span></h3><p>Piloto Habilitado</p></div>
       <div class="stat-item"><h3>100% <span>Legal</span></h3><p>Seguro & Normativa</p></div>
-      <div class="stat-item"><h3>Rápida <span>Entrega</span></h3><p>Material Raw y Editado</p></div>
+      <div class="stat-item"><h3>Rápido <span>Entrega</span></h3><p>Material Raw y Editado</p></div>
     </div>
   </section>
 
@@ -257,6 +257,17 @@
         <p class="section-desc">Combinamos tecnología de vanguardia y experiencia de vuelo para entregar imágenes de máximo impacto visual y precisión técnica.</p>
       </div>
       <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+          <h3>Fotogrametría & Relevamiento 3D</h3>
+          <p>Mapeo de precisión técnica, ortomosaicos georreferenciados en alta resolución, nubes de puntos densas, modelos digitales de elevación y cálculo de volúmenes.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Ortomosaicos georreferenciados de alta resolución</li>
+            <li><i class="fas fa-check"></i> Nube de puntos 3D y mallas poligonales</li>
+            <li><i class="fas fa-check"></i> Medición métrica de distancias, áreas y acopios</li>
+          </ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Fotogrametr%C3%ADa%20y%20Relevamiento%203D" class="service-btn" target="_blank">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
         <div class="service-card">
           <div class="service-icon"><i class="fas fa-industry"></i></div>
           <h3>Agro & Industria</h3>
@@ -319,173 +330,131 @@
       </div>
       <div class="gallery-filter">
         <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="fotogrametria">Fotogrametría &amp; 3D</button>
         <button class="filter-btn" data-filter="eventos">Eventos</button>
-        <button class="filter-btn" data-filter="agro">Agro & Industria</button>
-        <button class="filter-btn" data-filter="obras">Obras & Arquitectura</button>
-        <button class="filter-btn" data-filter="paisaje">Naturaleza & Paisajes</button>
+        <button class="filter-btn" data-filter="agro">Agro &amp; Industria</button>
+        <button class="filter-btn" data-filter="obras">Obras &amp; Arquitectura</button>
+        <button class="filter-btn" data-filter="paisaje">Naturaleza &amp; Paisajes</button>
       </div>
       <div class="gallery-grid">
-        <!-- Eventos -->
+        <!-- Eventos 1 -->
+        <!-- Fotogrametria 1 -->
+        <div class="gallery-item" data-category="fotogrametria">
+          <div class="gallery-img">
+            <img src="Captura de pantalla 2026-09-06 114059.png" alt="Nube de Puntos y Mediciones 3D" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/19TscvVpC64yQRFetISSMnKDT_5vXfHk5&quot;;">
+          </div>
+          <div class="gallery-overlay">
+            <span>Fotogrametría 3D</span>
+            <h4>Nube de Puntos &amp; Mediciones Métricas</h4>
+          </div>
+        </div>
+        <!-- Fotogrametria 2 -->
+        <div class="gallery-item" data-category="fotogrametria">
+          <div class="gallery-img">
+            <img src="Captura de pantalla 2026-09-06 112636.png" alt="Modelo Tridimensional de Terreno" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/14AgamFTM8qNE0CZdzU0dbGTk2J8gVMDI&quot;;">
+          </div>
+          <div class="gallery-overlay">
+            <span>Relevamiento 3D</span>
+            <h4>Modelo Tridimensional de Superficie</h4>
+          </div>
+        </div>
+        <!-- Fotogrametria 3 -->
+        <div class="gallery-item" data-category="fotogrametria">
+          <div class="gallery-img">
+            <img src="Captura de pantalla 2026-09-06 112702.png" alt="Ortomosaico Georreferenciado" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1OjsLhIPwJ6RGttjwo8oPDGdcknLvoPPt&quot;;">
+          </div>
+          <div class="gallery-overlay">
+            <span>Topografía Digital</span>
+            <h4>Ortomosaico Georreferenciado &amp; Escala</h4>
+          </div>
+        </div>
+        <!-- Fotogrametria 4 -->
+        <div class="gallery-item" data-category="fotogrametria">
+          <div class="gallery-img">
+            <img src="Captura de pantalla 2026-09-06 112734.png" alt="Análisis Espacial y Volumetría" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1MmfWa1RhxrramPHLxcwzsT1xhNx4BnzO&quot;;">
+          </div>
+          <div class="gallery-overlay">
+            <span>Análisis Técnico</span>
+            <h4>Cálculo de Volúmenes &amp; Perfiles de Elevación</h4>
+          </div>
+        </div>
         <div class="gallery-item" data-category="eventos">
           <div class="gallery-img">
-            <img src="Eventos1.jpg" alt="Eventos Masivos y Desfiles" loading="lazy">
+            <img src="IMG-20260529-WA0030.jpeg" alt="Cobertura de Eventos" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1-v1UMn9FbNTGfG9zOqPqLC5ZfXvnJVdr&quot;;">
           </div>
           <div class="gallery-overlay">
             <span>Audiovisual</span>
-            <h4>Eventos Masivos & Desfiles</h4>
+            <h4>Cobertura de Eventos</h4>
           </div>
         </div>
-
+        <!-- Eventos 2 -->
         <div class="gallery-item" data-category="eventos">
           <div class="gallery-img">
-            <img src="Eventos2.jpg" alt="Competencias y Maratones" loading="lazy">
+            <img src="lv_0_20260515080641.png" alt="Producción Audiovisual Dinámica" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1csxsbPZwEZGKyVkz52QkBBHUXBqDDMfl&quot;;">
           </div>
           <div class="gallery-overlay">
-            <span>Deportivo</span>
-            <h4>Competencias & Maratones</h4>
+            <span>Audiovisual</span>
+            <h4>Tomas Dinámicas &amp; Reels</h4>
           </div>
         </div>
-
-        <div class="gallery-item" data-category="eventos">
-          <div class="gallery-img">
-            <img src="Eventos3.jpg" alt="Escenarios y Festivales" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Espectáculos</span>
-            <h4>Escenarios & Festivales</h4>
-          </div>
-        </div>
-
-        <!-- Agro & Industria -->
-        <div class="gallery-item" data-category="agro">
-          <div class="gallery-img">
-            <img src="Agro1.jpg" alt="Relevamiento de Campo y Pasturas" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Agro</span>
-            <h4>Relevamiento de Campo & Pasturas</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="agro">
-          <div class="gallery-img">
-            <img src="Agro2.jpg" alt="Monitoreo de Lotes y Parcelas" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Agro</span>
-            <h4>Monitoreo de Lotes & Parcelas</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="agro">
-          <div class="gallery-img">
-            <img src="Inustria1.jpg" alt="Inspección de Torres y Líneas Eléctricas" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Industria</span>
-            <h4>Inspección de Torres & Líneas</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="agro">
-          <div class="gallery-img">
-            <img src="Industria2.jpg" alt="Monitoreo de Estructuras en Altura" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Industria</span>
-            <h4>Monitoreo de Estructuras</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="agro">
-          <div class="gallery-img">
-            <img src="Industria3.jpg" alt="Plantas Operativas y Logística" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Industria</span>
-            <h4>Plantas Operativas & Logística</h4>
-          </div>
-        </div>
-
-        <!-- Obras & Arquitectura -->
+        <!-- Obras 1 -->
         <div class="gallery-item" data-category="obras">
           <div class="gallery-img">
-            <img src="Arquitectura1.jpg" alt="Seguimiento de Obra y Cimientos" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Construcción</span>
-            <h4>Seguimiento de Obra & Cimientos</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="obras">
-          <div class="gallery-img">
-            <img src="Arquitectura2.jpg" alt="Propiedades y Desarrollos Suburbanos" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Bienes Raíces</span>
-            <h4>Propiedades & Desarrollos</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="obras">
-          <div class="gallery-img">
-            <img src="Arquitectura3.jpg" alt="Detalle e Inspección en Altura" loading="lazy">
-          </div>
-          <div class="gallery-overlay">
-            <span>Inspección</span>
-            <h4>Detalle e Inspección en Altura</h4>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="obras">
-          <div class="gallery-img">
-            <img src="Construccion1.jpg" alt="Relevamiento de Cúpulas y Fachadas" loading="lazy">
+            <img src="dji_fly_20260529_164520_0002_1780085025774_photo.jpg" alt="Seguimiento de Obra en Altura" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1VdQ81PNMJdxUr5lg1GrhIyKMS_3-2XL0&quot;;">
           </div>
           <div class="gallery-overlay">
             <span>Arquitectura</span>
-            <h4>Relevamiento de Cúpulas & Fachadas</h4>
+            <h4>Seguimiento de Obra en Altura</h4>
           </div>
         </div>
-
+        <!-- Obras 2 -->
         <div class="gallery-item" data-category="obras">
           <div class="gallery-img">
-            <img src="Construccion2.jpg" alt="Relevamiento Cenital de Predio" loading="lazy">
+            <img src="dji_fly_20260529_164548_0003_1780085022587_photo.jpg" alt="Estudio &amp; Desarrollo Urbano" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1-ahNhOFtS4zhJE7yaNUhqkKqybYNFBzI&quot;;">
           </div>
           <div class="gallery-overlay">
-            <span>Mapeo Técnico</span>
-            <h4>Relevamiento Cenital de Predio</h4>
+            <span>Construcción</span>
+            <h4>Estudio &amp; Desarrollo Urbano</h4>
           </div>
         </div>
-
-        <!-- Naturaleza & Paisajes -->
-        <div class="gallery-item" data-category="paisaje">
+        <!-- Agro &amp; Industria 1 -->
+        <div class="gallery-item" data-category="agro">
           <div class="gallery-img">
-            <img src="Flora1.jpg" alt="Registro de Aves Autóctonas" loading="lazy">
+            <img src="dji_fly_20260529_164556_0004_1780085019262_photo.jpg" alt="Planta Industrial &amp; Silos" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1aLeLgQszPyZF6cC7eQypLW46IGTr2_3h&quot;;">
           </div>
           <div class="gallery-overlay">
-            <span>Fauna & Reserva</span>
-            <h4>Registro de Aves Autóctonas</h4>
+            <span>Industria</span>
+            <h4>Planta Industrial &amp; Silos</h4>
           </div>
         </div>
-
-        <div class="gallery-item" data-category="paisaje">
+        <!-- Agro &amp; Industria 2 -->
+        <div class="gallery-item" data-category="agro">
           <div class="gallery-img">
-            <img src="Flora2.jpg" alt="Cursos de Agua y Riberas" loading="lazy">
+            <img src="dji_fly_20260529_164648_0007_1780084954581_photo.jpg" alt="Relevamiento de Campo &amp; Lotes" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/15WQhgiC2KvkJpCta78ev3z39LhqJdVyT&quot;;">
           </div>
           <div class="gallery-overlay">
-            <span>Paisaje</span>
-            <h4>Cursos de Agua & Riberas</h4>
+            <span>Agro</span>
+            <h4>Relevamiento de Campo &amp; Lotes</h4>
           </div>
         </div>
-
+        <!-- Naturaleza 1 -->
         <div class="gallery-item" data-category="paisaje">
           <div class="gallery-img">
-            <img src="Flora3.jpg" alt="Playas y Ecosistema Ribereño" loading="lazy">
+            <img src="IMG-20260529-WA0032.jpeg" alt="Costanera y Río Gualeguaychú" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1BIKz5I0uXUZXr0MRUQaXYFrUZlD8GpAS&quot;;">
           </div>
           <div class="gallery-overlay">
             <span>Naturaleza</span>
-            <h4>Playas & Ecosistema Ribereño</h4>
+            <h4>Costanera y Río Gualeguaychú</h4>
+          </div>
+        </div>
+        <!-- Naturaleza 2 -->
+        <div class="gallery-item" data-category="paisaje">
+          <div class="gallery-img">
+            <img src="IMG-20260529-WA0034.jpeg" alt="Flora y Paisaje Autóctono" loading="lazy" onerror="this.onerror=null; this.src=&quot;https://lh3.googleusercontent.com/d/1QIHCbCQYP4OXmE_D7Iebz5WIvMl0g2Cd&quot;;">
+          </div>
+          <div class="gallery-overlay">
+            <span>Reserva Natural</span>
+            <h4>Flora y Paisaje Autóctono</h4>
           </div>
         </div>
       </div>
@@ -513,7 +482,7 @@
               <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" placeholder="Ej: 11 6259 5448" required></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control"><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
+              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control"><option value="Fotogrametría y Relevamiento 3D">Fotogrametría y Relevamiento 3D</option><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
               <div class="form-group"><label class="form-label" for="ubicacion">Localidad del Proyecto</label><input type="text" id="ubicacion" class="form-control" placeholder="Ej: Gualeguaychú"></div>
             </div>
             <div class="form-group"><label class="form-label" for="mensaje">Detalles del Proyecto</label><textarea id="mensaje" class="form-control" placeholder="Describe brevemente qué necesitas filmar o fotografiar..."></textarea></div>
