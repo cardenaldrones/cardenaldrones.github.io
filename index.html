@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cardenal Drones | Visión Aérea Inteligente</title>
   <meta name="description" content="Servicios profesionales de filmación y fotografía aérea con drones en Gualeguaychú y Entre Ríos. Piloto habilitado por ANAC.">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cardenal Drones | Visión Aérea Inteligente">
+  <meta property="og:description" content="Filmación y fotografía aérea profesional con drones en Gualeguaychú y Entre Ríos. Piloto habilitado por ANAC.">
+  <meta property="og:image" content="https://cardenaldrones.com.ar/og-image.jpg">
+  <meta property="og:url" content="https://cardenaldrones.com.ar/">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cardenal Drones | Visión Aérea Inteligente">
+  <meta name="twitter:description" content="Filmación y fotografía aérea profesional con drones en Gualeguaychú y Entre Ríos. Piloto habilitado por ANAC.">
+  <meta name="twitter:image" content="https://cardenaldrones.com.ar/og-image.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +33,7 @@
       --primary-light: #fff0f1;
       --text-main: #0f172a;
       --text-muted: #475569;
-      --text-dim: #64748b;
+      --text-dim: #55617a;
       --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
       --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.07);
       --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.1);
@@ -60,12 +73,13 @@
     .hero-glow { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(217, 4, 41, 0.06) 0%, transparent 70%); top: -50px; right: -50px; border-radius: 50%; pointer-events: none; }
     .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
     .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-light); border: 1px solid rgba(217, 4, 41, 0.25); padding: 0.4rem 1.1rem; border-radius: 50px; font-size: 0.88rem; font-weight: 700; color: var(--primary); margin-bottom: 1.5rem; text-transform: uppercase; }
-    .hero-title { font-family: var(--font-heading); font-size: 3.4rem; line-height: 1.12; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1.2px; color: #0f172a; }
+    .hero-title { font-family: var(--font-heading); font-size: clamp(2.2rem, 4vw + 1rem, 3.4rem); line-height: 1.12; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1.2px; color: #0f172a; }
     .hero-title .highlight { color: var(--primary); }
     .hero-desc { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 540px; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.85rem; border-radius: 50px; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: var(--transition); border: none; font-family: var(--font-main); }
     .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); color: #ffffff; box-shadow: 0 6px 20px rgba(217, 4, 41, 0.25); }
+    .btn-primary:disabled { opacity: 0.75; cursor: default; }
     .btn-outline { background: #ffffff; color: var(--text-main); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
     .btn-outline:hover { background: var(--bg-surface); border-color: #cbd5e1; transform: translateY(-2px); }
     
@@ -178,16 +192,37 @@
     @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-desc { margin: 0 auto 2.5rem; } .hero-actions { justify-content: center; } .tech-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .contact-grid { grid-template-columns: 1fr; } }
     @media (max-width: 768px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-md); } .mobile-menu-btn { display: block; } .hero-title { font-size: 2.5rem; } .form-row { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } .nav-logo-img { height: 42px; } .nav-brand-text { font-size: 1.3rem; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Cardenal Drones",
+    "description": "Servicios profesionales de filmación y fotografía aérea con drones en Gualeguaychú y Entre Ríos. Piloto habilitado por ANAC.",
+    "image": "https://cardenaldrones.com.ar/logo.png",
+    "telephone": "+5491162595448",
+    "email": "cardenal.drones@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Gualeguaychú",
+      "addressRegion": "Entre Ríos",
+      "addressCountry": "AR"
+    },
+    "areaServed": "Entre Ríos, Argentina",
+    "sameAs": [
+      "https://instagram.com/cardenaldrones"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <a href="https://wa.me/5491162595448?text=Hola%20Cardenal%20Drones,%20quisiera%20consultar%20por%20un%20servicio" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+  <a href="https://wa.me/5491162595448?text=Hola%20Cardenal%20Drones,%20tengo%20una%20consulta%20r%C3%A1pida" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Consulta rápida por WhatsApp" title="Consulta rápida por WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <header class="navbar" id="navbar">
     <div class="container nav-content">
       <a href="#" class="brand-logo-link">
-        <img src="logo.png" alt="Logo Cardenal Drones" class="nav-logo-img" onerror="this.style.display='none'; document.getElementById('navFallbackIcon').style.display='inline-block';">
+        <img src="logo.png" alt="Logo Cardenal Drones" class="nav-logo-img" width="54" height="54" onerror="this.style.display='none'; document.getElementById('navFallbackIcon').style.display='inline-block';">
         <i id="navFallbackIcon" class="fas fa-feather-alt nav-fallback-icon"></i>
         <div class="nav-brand-text">
           Cardenal <span>Drones</span>
@@ -546,11 +581,11 @@
               <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" placeholder="Ej: 11 6259 5448" required></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control"><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
+              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control" required><option value="" selected disabled>Seleccioná un servicio</option><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
               <div class="form-group"><label class="form-label" for="ubicacion">Localidad del Proyecto</label><input type="text" id="ubicacion" class="form-control" placeholder="Ej: Gualeguaychú"></div>
             </div>
             <div class="form-group"><label class="form-label" for="mensaje">Detalles del Proyecto</label><textarea id="mensaje" class="form-control" placeholder="Describe brevemente qué necesitas filmar o fotografiar..."></textarea></div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> Enviar Consulta por WhatsApp</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fab fa-whatsapp"></i> <span id="submitBtnText">Enviar Consulta por WhatsApp</span></button>
           </form>
         </div>
       </div>
@@ -598,6 +633,8 @@
       });
     });
     const quoteForm = document.getElementById('quoteForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
     quoteForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const nombre = document.getElementById('nombre').value.trim();
@@ -606,7 +643,18 @@
       const ubicacion = document.getElementById('ubicacion').value.trim();
       const mensaje = document.getElementById('mensaje').value.trim();
       const text = `Hola Cardenal Drones!%0A%0A*Consulta de Presupuesto:*%0A- *Nombre:* ${encodeURIComponent(nombre)}%0A- *Teléfono:* ${encodeURIComponent(telefono)}%0A- *Servicio:* ${encodeURIComponent(servicio)}%0A- *Ubicación:* ${encodeURIComponent(ubicacion || 'A definir')}%0A- *Mensaje:* ${encodeURIComponent(mensaje || 'Sin detalles adicionales')}`;
+
+      submitBtn.disabled = true;
+      submitBtnText.textContent = 'Abriendo WhatsApp...';
       window.open(`https://wa.me/5491162595448?text=${text}`, '_blank');
+
+      setTimeout(() => {
+        submitBtnText.textContent = '¡Listo! Revisá WhatsApp';
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtnText.textContent = 'Enviar Consulta por WhatsApp';
+        }, 2500);
+      }, 600);
     });
   </script>
 </body>
