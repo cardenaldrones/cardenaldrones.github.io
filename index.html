@@ -113,7 +113,7 @@
     
     /* Servicios */
     .services-section { padding: 6.5rem 0; background: var(--bg-surface); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.75rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
     .service-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2.25rem 1.75rem; transition: var(--transition); display: flex; flex-direction: column; box-shadow: var(--shadow-sm); }
     .service-card:hover { transform: translateY(-6px); border-color: #cbd5e1; box-shadow: var(--shadow-md); }
     .service-icon { width: 56px; height: 56px; background: var(--primary-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(217, 4, 41, 0.15); transition: var(--transition); }
@@ -189,8 +189,8 @@
     .social-btn { width: 42px; height: 42px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
     .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem; color: #94a3b8; }
     
-    @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-desc { margin: 0 auto 2.5rem; } .hero-actions { justify-content: center; } .tech-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .contact-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-md); } .mobile-menu-btn { display: block; } .hero-title { font-size: 2.5rem; } .form-row { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } .nav-logo-img { height: 42px; } .nav-brand-text { font-size: 1.3rem; } }
+    @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-desc { margin: 0 auto 2.5rem; } .hero-actions { justify-content: center; } .tech-grid { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .contact-grid { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-md); } .mobile-menu-btn { display: block; } .hero-title { font-size: 2.5rem; } .form-row { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } .nav-logo-img { height: 42px; } .nav-brand-text { font-size: 1.3rem; } .services-grid { grid-template-columns: 1fr; } }
   </style>
   <script type="application/ld+json">
   {
@@ -576,8 +576,8 @@
         <div class="contact-form-card">
           <form id="quoteForm">
             <div class="form-row">
-              <div class="form-group"><label class="form-label" for="nombre">Tu Nombre / Empresa</label><input type="text" id="nombre" class="form-control" placeholder="Ej: Mario Solano" required></div>
-              <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" placeholder="Ej: 11 6259 5448" required></div>
+              <div class="form-group"><label class="form-label" for="nombre">Tu Nombre / Empresa</label><input type="text" id="nombre" class="form-control" required></div>
+              <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" required></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control" required><option value="" selected disabled>Seleccioná un servicio</option><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
