@@ -158,6 +158,29 @@
     
     @media (hover: none) { .gallery-overlay { opacity: 1; background: linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 55%); padding: 1rem 1.25rem; } .gallery-item:hover .gallery-img { transform: none; } }
 
+    /* Visor de imágenes (lightbox) */
+    .gallery-item { cursor: zoom-in; }
+    .gallery-item:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+    body.lb-open { overflow: hidden; }
+    .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 4rem 1rem 5.5rem; background: rgba(15, 23, 42, 0.95); }
+    .lightbox.open { display: flex; animation: lbFade 0.2s ease; }
+    @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+    .lightbox-figure { margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .lightbox-img { display: block; max-width: min(96vw, 1500px); max-height: calc(100vh - 11rem); max-height: calc(100dvh - 11rem); width: auto; height: auto; object-fit: contain; border-radius: var(--radius-sm); background: #0f172a; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+    .lightbox-caption { text-align: center; color: #ffffff; }
+    .lightbox-caption span { display: block; font-size: 0.75rem; color: #ff8fa3; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .lightbox-caption h4 { font-size: 1.15rem; font-weight: 600; }
+    .lightbox-counter { position: absolute; top: 1.35rem; left: 1.5rem; color: #cbd5e1; font-size: 0.9rem; font-weight: 600; }
+    .lightbox-btn { position: absolute; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.1); color: #ffffff; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+    .lightbox-btn:hover { background: var(--primary); border-color: var(--primary); }
+    .lightbox-btn:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; }
+    .lightbox-close { top: 1rem; right: 1rem; }
+    .lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox.single .lightbox-prev, .lightbox.single .lightbox-next, .lightbox.single .lightbox-counter { display: none; }
+    @media (max-width: 768px) { .lightbox { padding: 4rem 0.5rem 6rem; } .lightbox-img { max-width: 100%; max-height: calc(100vh - 12rem); max-height: calc(100dvh - 12rem); } .lightbox-prev, .lightbox-next { top: auto; bottom: 1.25rem; transform: none; } .lightbox-prev { left: calc(50% - 60px); } .lightbox-next { right: calc(50% - 60px); } }
+
     /* Contacto */
     .contact-section { padding: 6.5rem 0; background: #ffffff; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: start; }
@@ -663,6 +686,17 @@
     </div>
   </footer>
 
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imágenes" aria-hidden="true">
+    <span class="lightbox-counter" id="lightboxCounter" aria-live="polite"></span>
+    <button type="button" class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Cerrar"><i class="fas fa-xmark"></i></button>
+    <button type="button" class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Foto anterior"><i class="fas fa-chevron-left"></i></button>
+    <button type="button" class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Foto siguiente"><i class="fas fa-chevron-right"></i></button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <figcaption class="lightbox-caption"><span id="lightboxCat"></span><h4 id="lightboxTitle"></h4></figcaption>
+    </figure>
+  </div>
+
   <script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
@@ -707,6 +741,82 @@
           submitBtnText.textContent = 'Enviar Consulta por WhatsApp';
         }, 2500);
       }, 600);
+    });
+
+    // Visor de imágenes
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbCat = document.getElementById('lightboxCat');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbCounter = document.getElementById('lightboxCounter');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbPrev = document.getElementById('lightboxPrev');
+    const lbNext = document.getElementById('lightboxNext');
+    let lbList = [], lbIndex = 0, lbLastFocus = null, lbTouchX = null;
+
+    function visibleGalleryItems() { return Array.from(galleryItems).filter(item => item.style.display !== 'none'); }
+    function showLightboxItem(index) {
+      const item = lbList[index];
+      const img = item.querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lbCat.textContent = item.querySelector('.gallery-overlay span').textContent;
+      lbTitle.textContent = item.querySelector('.gallery-overlay h4').textContent;
+      lbCounter.textContent = (index + 1) + ' / ' + lbList.length;
+      lightbox.classList.toggle('single', lbList.length < 2);
+    }
+    function openLightbox(item) {
+      lbLastFocus = document.activeElement;
+      lbList = visibleGalleryItems();
+      lbIndex = Math.max(0, lbList.indexOf(item));
+      showLightboxItem(lbIndex);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lb-open');
+      lbClose.focus();
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lb-open');
+      lbImg.removeAttribute('src');
+      if (lbLastFocus && lbLastFocus.focus) { lbLastFocus.focus(); }
+    }
+    function stepLightbox(dir) {
+      if (lbList.length < 2) { return; }
+      lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+      showLightboxItem(lbIndex);
+    }
+    galleryItems.forEach(item => {
+      const title = item.querySelector('.gallery-overlay h4').textContent;
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.setAttribute('aria-label', 'Ampliar foto: ' + title);
+      item.addEventListener('click', () => openLightbox(item));
+      item.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(item); } });
+    });
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => stepLightbox(-1));
+    lbNext.addEventListener('click', () => stepLightbox(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) { closeLightbox(); } });
+    lightbox.addEventListener('touchstart', (e) => { lbTouchX = e.changedTouches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      if (lbTouchX === null) { return; }
+      const dx = e.changedTouches[0].clientX - lbTouchX;
+      lbTouchX = null;
+      if (Math.abs(dx) > 50) { stepLightbox(dx < 0 ? 1 : -1); }
+    }, { passive: true });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) { return; }
+      if (e.key === 'Escape') { closeLightbox(); }
+      else if (e.key === 'ArrowLeft') { stepLightbox(-1); }
+      else if (e.key === 'ArrowRight') { stepLightbox(1); }
+      else if (e.key === 'Tab') {
+        const focusables = [lbClose, lbPrev, lbNext].filter(b => b.offsetParent !== null);
+        const first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
   </script>
 </body>
