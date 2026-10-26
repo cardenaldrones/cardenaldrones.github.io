@@ -141,6 +141,29 @@
     .anac-header span { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
     .anac-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.75rem; line-height: 1.65; }
     
+    /* Formación certificada */
+    .cert-block { margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--border-color); }
+    .cert-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .cert-head .section-title { font-size: 1.9rem; margin-bottom: 0.4rem; }
+    .cert-head .section-desc { max-width: 560px; }
+    .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+    .cert-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: var(--transition); }
+    .cert-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #cbd5e1; }
+    .cert-thumb { display: block; aspect-ratio: 1.414 / 1; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); overflow: hidden; cursor: zoom-in; }
+    .cert-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .cert-card:hover .cert-thumb img { transform: scale(1.03); }
+    .cert-body { padding: 1.5rem 1.6rem 1.6rem; display: flex; flex-direction: column; gap: 0.9rem; flex-grow: 1; }
+    .cert-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .cert-chip { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); background: var(--primary-light); border: 1px solid rgba(217, 4, 41, 0.18); padding: 0.25rem 0.7rem; border-radius: 50px; }
+    .cert-chip.alt { color: var(--text-muted); background: var(--bg-surface); border-color: var(--border-color); }
+    .cert-body h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-main); line-height: 1.3; }
+    .cert-body p { font-size: 0.92rem; color: var(--text-muted); }
+    .cert-body .service-features { margin-bottom: 0; }
+    .cert-foot { margin-top: auto; padding-top: 1rem; border-top: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-dim); }
+    .cert-foot code { font-family: var(--font-heading); font-weight: 600; color: var(--text-main); letter-spacing: 0.5px; }
+    .cert-foot a { color: var(--primary); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    @media (max-width: 768px) { .cert-grid { grid-template-columns: 1fr; } .cert-head { text-align: center; justify-content: center; } }
+
     /* Portafolio */
     .portfolio-section { padding: 6.5rem 0; background: var(--bg-surface); }
     .gallery-filter { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 3rem; flex-wrap: wrap; }
@@ -353,6 +376,7 @@
             <li><i class="fas fa-check"></i> Ortomosaicos georreferenciados de alta resolución</li>
             <li><i class="fas fa-check"></i> Nube de puntos 3D y modelos de elevación</li>
             <li><i class="fas fa-check"></i> Medición métrica de distancias, áreas y acopios</li>
+            <li><i class="fas fa-check"></i> <a href="#formacion" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Formación certificada en fotogrametría</a></li>
           </ul>
           <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Fotogrametr%C3%ADa%20y%20Relevamiento%203D" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -404,6 +428,47 @@
           <div class="anac-header"><div class="anac-icon"><i class="fas fa-passport"></i></div><div><h3>Piloto Habilitado ANAC</h3><span>Administración Nacional de Aviación Civil</span></div></div>
           <p>Contamos con la licencia oficial de operador y piloto de drones emitida por ANAC (Argentina), asegurando que todas las tomas aéreas se efectúen bajo las normativas vigentes.</p>
           <a href="#contacto" class="btn btn-outline" style="width: 100%; justify-content: center;"><i class="fas fa-check-circle"></i> Solicitar Verificación & Presupuesto</a>
+        </div>
+      </div>
+      <div class="cert-block" id="formacion">
+        <div class="cert-head">
+          <div>
+            <span class="section-tag">Formación Certificada</span>
+            <h2 class="section-title">Especialización en Agricultura de Precisión</h2>
+            <p class="section-desc">Además de la habilitación ANAC, completamos el programa de especialización en agro de Hub Education, alineado a los estándares de capacitación DJI UTC.</p>
+          </div>
+        </div>
+        <div class="cert-grid">
+          <article class="cert-card">
+            <a class="cert-thumb" href="img/certificado-fotogrametria-rgb.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Fotogrametría y Mapeo de Cultivos">
+              <img src="img/certificado-fotogrametria-rgb.webp" alt="Certificado de finalización: Fotogrametría y Mapeo de Cultivos con Drones, Hub Education" loading="lazy">
+            </a>
+            <div class="cert-body">
+              <div class="cert-meta"><span class="cert-chip">Cámara RGB</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Sep 2026</span></div>
+              <h3>Fotogrametría y Mapeo de Cultivos con Drones</h3>
+              <ul class="service-features">
+                <li><i class="fas fa-check"></i> Ortomosaicos, nube de puntos, DSM, DTM y DEM</li>
+                <li><i class="fas fa-check"></i> Planificación de GSD, solapamiento y tipo de vuelo</li>
+                <li><i class="fas fa-check"></i> Georreferenciación con RTK, PPK o puntos de apoyo</li>
+              </ul>
+              <div class="cert-foot"><span>Hub Education · Código <code>EyTxTHntgA</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+            </div>
+          </article>
+          <article class="cert-card">
+            <a class="cert-thumb" href="img/certificado-multiespectral.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Análisis Multiespectral de Cultivos">
+              <img src="img/certificado-multiespectral.webp" alt="Certificado de finalización: Análisis Multiespectral de Cultivos con Drones, Hub Education y MetroAgro" loading="lazy">
+            </a>
+            <div class="cert-body">
+              <div class="cert-meta"><span class="cert-chip">Multiespectral</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Oct 2026</span></div>
+              <h3>Análisis Multiespectral de Cultivos con Drones</h3>
+              <ul class="service-features">
+                <li><i class="fas fa-check"></i> Índices NDVI, NDRE, OSAVI y lectura de firma espectral</li>
+                <li><i class="fas fa-check"></i> Zonas de manejo y mapas de prescripción en QGIS</li>
+                <li><i class="fas fa-check"></i> En alianza académica con MetroAgro</li>
+              </ul>
+              <div class="cert-foot"><span>Hub Education · Código <code>vIhIFLMKHN</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+            </div>
+          </article>
         </div>
       </div>
     </div>
