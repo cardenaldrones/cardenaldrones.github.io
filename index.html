@@ -142,7 +142,7 @@
     .anac-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.75rem; line-height: 1.65; }
     
     /* Formación certificada */
-    .cert-block { margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--border-color); }
+    .cert-section { padding: 6.5rem 0; background: var(--bg-surface); }
     .cert-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
     .cert-head .section-title { font-size: 1.9rem; margin-bottom: 0.4rem; }
     .cert-head .section-desc { max-width: 560px; }
@@ -205,7 +205,7 @@
     @media (max-width: 768px) { .lightbox { padding: 4rem 0.5rem 6rem; } .lightbox-img { max-width: 100%; max-height: calc(100vh - 12rem); max-height: calc(100dvh - 12rem); } .lightbox-prev, .lightbox-next { top: auto; bottom: 1.25rem; transform: none; } .lightbox-prev { left: calc(50% - 60px); } .lightbox-next { right: calc(50% - 60px); } }
 
     /* Novedad: Recorrido 360 */
-    .vr-section { padding: 6.5rem 0; background: #ffffff; border-bottom: 1px solid var(--border-color); }
+    .vr-section { padding: 6.5rem 0; background: #ffffff; }
     .new-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-light); border: 1px solid rgba(217, 4, 41, 0.25); color: var(--primary); padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
     .new-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.5); animation: newPulse 1.8s infinite; }
     @keyframes newPulse { 0% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.45); } 70% { box-shadow: 0 0 0 9px rgba(217, 4, 41, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0); } }
@@ -226,6 +226,8 @@
     .vr-use i { color: var(--primary); }
     .vr-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
     .vr-content .section-title { margin-bottom: 1rem; }
+    @media (max-width: 1240px) { .nav-links { gap: 1.35rem; } .nav-links a { font-size: 0.92rem; } .nav-cta-btn { padding: 0.55rem 1.1rem; } }
+    @media (max-width: 1100px) { .nav-links { display: none; } .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-md); } .mobile-menu-btn { display: block; } }
     @media (max-width: 992px) { .vr-grid { grid-template-columns: 1fr; gap: 2.5rem; } .vr-content { text-align: center; } .vr-uses, .vr-actions { justify-content: center; } .vr-content .service-features { align-items: center; } }
     @media (max-width: 768px) { .vr-caption { left: 1rem; right: 1rem; bottom: 1rem; } .vr-cap-text h4 { font-size: 1rem; } .vr-play { padding: 0.55rem 0.95rem; font-size: 0.85rem; } }
     @media (max-width: 420px) { .vr-cap-text h4 { display: none; } }
@@ -258,7 +260,7 @@
     .footer-brand h4 { font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; color: #ffffff; }
     .footer-brand h4 span { color: var(--primary); }
     .footer-brand p { color: #94a3b8; font-size: 0.88rem; margin-top: 0.25rem; }
-    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
+    .footer-links { display: flex; gap: 0.75rem 1.75rem; list-style: none; flex-wrap: wrap; }
     .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; }
     .social-links { display: flex; gap: 1rem; }
     .social-btn { width: 42px; height: 42px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; font-size: 1.1rem; }
@@ -304,10 +306,11 @@
         </div>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#tecnologia">Tecnología & Seguridad</a></li>
         <li><a href="#galeria">Portafolio</a></li>
         <li><a href="#recorrido-360">Recorrido 360°</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#tecnologia">Seguridad</a></li>
+        <li><a href="#formacion">Certificados</a></li>
         <li><a href="#contacto">Contacto</a></li>
         <li><a href="#contacto" class="nav-cta-btn">Cotizar Vuelo</a></li>
       </ul>
@@ -357,120 +360,6 @@
       <div class="stat-item"><h3>ANAC <span>OK</span></h3><p>Piloto Habilitado</p></div>
       <div class="stat-item"><h3>100% <span>Legal</span></h3><p>Seguro & Normativa</p></div>
       <div class="stat-item"><h3>Entrega <span>Rápida</span></h3><p>Material Raw y Editado</p></div>
-    </div>
-  </section>
-
-  <section class="services-section" id="servicios">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Soluciones a Medida</span>
-        <h2 class="section-title">Servicios Aéreos Profesionales</h2>
-        <p class="section-desc">Combinamos tecnología de vanguardia y experiencia de vuelo para entregar imágenes de máximo impacto visual y precisión técnica.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-layer-group"></i></div>
-          <h3>Fotogrametría &amp; Relevamiento 3D</h3>
-          <p>Mapeo de precisión técnica, ortomosaicos georreferenciados en alta resolución, nubes de puntos densas, modelos digitales de elevación y cálculo de volúmenes.</p>
-          <ul class="service-features">
-            <li><i class="fas fa-check"></i> Ortomosaicos georreferenciados de alta resolución</li>
-            <li><i class="fas fa-check"></i> Nube de puntos 3D y modelos de elevación</li>
-            <li><i class="fas fa-check"></i> Medición métrica de distancias, áreas y acopios</li>
-            <li><i class="fas fa-check"></i> <a href="#formacion" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Formación certificada en fotogrametría</a></li>
-          </ul>
-          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Fotogrametr%C3%ADa%20y%20Relevamiento%203D" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-industry"></i></div>
-          <h3>Agro & Industria</h3>
-          <p>Relevamiento de plantas fabriles, silos, acopios, campos y logística. Monitoreo visual de infraestructura a gran escala.</p>
-          <ul class="service-features"><li><i class="fas fa-check"></i> Tomas de acopios y plantas</li><li><i class="fas fa-check"></i> Inspección de techos y silos</li><li><i class="fas fa-check"></i> Registro logístico y transporte</li></ul>
-          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Agro%20e%20Industria" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-video"></i></div>
-          <h3>Audiovisual & Redes</h3>
-          <p>Tomas dinámicas para spots publicitarios, reels, cobertura de eventos, turismo y contenido institucional de alto impacto.</p>
-          <ul class="service-features"><li><i class="fas fa-check"></i> Video promocional en 4K</li><li><i class="fas fa-check"></i> Formatos horizontal y vertical</li><li><i class="fas fa-check"></i> Perfil de color D-Log M</li></ul>
-          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Audiovisual" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-building"></i></div>
-          <h3>Obras & Bienes Raíces</h3>
-          <p>Seguimiento periódico del avance de obras civiles, loteos, desarrollos inmobiliarios y arquitectura.</p>
-          <ul class="service-features"><li><i class="fas fa-check"></i> Avance cronológico de obra</li><li><i class="fas fa-check"></i> Perspectivas para venta de lotes</li><li><i class="fas fa-check"></i> Registro para estudios y clientes</li></ul>
-          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20para%20Obras" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="service-card">
-          <div class="service-icon"><i class="fas fa-tree"></i></div>
-          <h3>Ambiente & Paisaje</h3>
-          <p>Registros aéreos responsables para reservas naturales, proyectos ambientales, divulgación y turismo sostenible.</p>
-          <ul class="service-features"><li><i class="fas fa-check"></i> Vuelo de bajo impacto ambiental</li><li><i class="fas fa-check"></i> Documentación de biodiversidad</li><li><i class="fas fa-check"></i> Fotografía paisajística HDR</li></ul>
-          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Ambiental%20y%20Paisaje" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tech-section" id="tecnologia">
-    <div class="container">
-      <div class="tech-grid">
-        <div>
-          <span class="section-tag">Tecnología & Seguridad</span>
-          <h2 class="section-title">Operaciones Seguras y Certificadas</h2>
-          <p class="section-desc">Cada vuelo es planificado cumpliendo estrictos estándares de seguridad operacional. Garantizamos tranquilidad legal y calidad técnica superior.</p>
-          <div class="tech-badges">
-            <div class="tech-box"><h4><i class="fas fa-microchip"></i> DJI Air 3S Tech</h4><p>Sensores omnidireccionales nocturnos y doble cámara.</p></div>
-            <div class="tech-box"><h4><i class="fas fa-file-contract"></i> Seguro VANT</h4><p>Póliza de responsabilidad civil vigente para operaciones.</p></div>
-          </div>
-        </div>
-        <div class="anac-card">
-          <div class="anac-header"><div class="anac-icon"><i class="fas fa-passport"></i></div><div><h3>Piloto Habilitado ANAC</h3><span>Administración Nacional de Aviación Civil</span></div></div>
-          <p>Contamos con la licencia oficial de operador y piloto de drones emitida por ANAC (Argentina), asegurando que todas las tomas aéreas se efectúen bajo las normativas vigentes.</p>
-          <a href="#contacto" class="btn btn-outline" style="width: 100%; justify-content: center;"><i class="fas fa-check-circle"></i> Solicitar Verificación & Presupuesto</a>
-        </div>
-      </div>
-      <div class="cert-block" id="formacion">
-        <div class="cert-head">
-          <div>
-            <span class="section-tag">Formación Certificada</span>
-            <h2 class="section-title">Especialización en Agricultura de Precisión</h2>
-            <p class="section-desc">Además de la habilitación ANAC, completamos el programa de especialización en agro de Hub Education, alineado a los estándares de capacitación DJI UTC.</p>
-          </div>
-        </div>
-        <div class="cert-grid">
-          <article class="cert-card">
-            <a class="cert-thumb" href="img/certificado-fotogrametria-rgb.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Fotogrametría y Mapeo de Cultivos">
-              <img src="img/certificado-fotogrametria-rgb.webp" alt="Certificado de finalización: Fotogrametría y Mapeo de Cultivos con Drones, Hub Education" loading="lazy">
-            </a>
-            <div class="cert-body">
-              <div class="cert-meta"><span class="cert-chip">Cámara RGB</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Sep 2026</span></div>
-              <h3>Fotogrametría y Mapeo de Cultivos con Drones</h3>
-              <ul class="service-features">
-                <li><i class="fas fa-check"></i> Ortomosaicos, nube de puntos, DSM, DTM y DEM</li>
-                <li><i class="fas fa-check"></i> Planificación de GSD, solapamiento y tipo de vuelo</li>
-                <li><i class="fas fa-check"></i> Georreferenciación con RTK, PPK o puntos de apoyo</li>
-              </ul>
-              <div class="cert-foot"><span>Hub Education · Código <code>EyTxTHntgA</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
-            </div>
-          </article>
-          <article class="cert-card">
-            <a class="cert-thumb" href="img/certificado-multiespectral.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Análisis Multiespectral de Cultivos">
-              <img src="img/certificado-multiespectral.webp" alt="Certificado de finalización: Análisis Multiespectral de Cultivos con Drones, Hub Education y MetroAgro" loading="lazy">
-            </a>
-            <div class="cert-body">
-              <div class="cert-meta"><span class="cert-chip">Multiespectral</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Oct 2026</span></div>
-              <h3>Análisis Multiespectral de Cultivos con Drones</h3>
-              <ul class="service-features">
-                <li><i class="fas fa-check"></i> Índices NDVI, NDRE, OSAVI y lectura de firma espectral</li>
-                <li><i class="fas fa-check"></i> Zonas de manejo y mapas de prescripción en QGIS</li>
-                <li><i class="fas fa-check"></i> En alianza académica con MetroAgro</li>
-              </ul>
-              <div class="cert-foot"><span>Hub Education · Código <code>vIhIFLMKHN</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
-            </div>
-          </article>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -755,6 +644,123 @@
     </div>
   </section>
 
+  <section class="services-section" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Soluciones a Medida</span>
+        <h2 class="section-title">Servicios Aéreos Profesionales</h2>
+        <p class="section-desc">Combinamos tecnología de vanguardia y experiencia de vuelo para entregar imágenes de máximo impacto visual y precisión técnica.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+          <h3>Fotogrametría &amp; Relevamiento 3D</h3>
+          <p>Mapeo de precisión técnica, ortomosaicos georreferenciados en alta resolución, nubes de puntos densas, modelos digitales de elevación y cálculo de volúmenes.</p>
+          <ul class="service-features">
+            <li><i class="fas fa-check"></i> Ortomosaicos georreferenciados de alta resolución</li>
+            <li><i class="fas fa-check"></i> Nube de puntos 3D y modelos de elevación</li>
+            <li><i class="fas fa-check"></i> Medición métrica de distancias, áreas y acopios</li>
+            <li><i class="fas fa-check"></i> <a href="#formacion" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Formación certificada en fotogrametría</a></li>
+          </ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Fotogrametr%C3%ADa%20y%20Relevamiento%203D" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-industry"></i></div>
+          <h3>Agro & Industria</h3>
+          <p>Relevamiento de plantas fabriles, silos, acopios, campos y logística. Monitoreo visual de infraestructura a gran escala.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Tomas de acopios y plantas</li><li><i class="fas fa-check"></i> Inspección de techos y silos</li><li><i class="fas fa-check"></i> Registro logístico y transporte</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20de%20Agro%20e%20Industria" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-video"></i></div>
+          <h3>Audiovisual & Redes</h3>
+          <p>Tomas dinámicas para spots publicitarios, reels, cobertura de eventos, turismo y contenido institucional de alto impacto.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Video promocional en 4K</li><li><i class="fas fa-check"></i> Formatos horizontal y vertical</li><li><i class="fas fa-check"></i> Perfil de color D-Log M</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Audiovisual" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-building"></i></div>
+          <h3>Obras & Bienes Raíces</h3>
+          <p>Seguimiento periódico del avance de obras civiles, loteos, desarrollos inmobiliarios y arquitectura.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Avance cronológico de obra</li><li><i class="fas fa-check"></i> Perspectivas para venta de lotes</li><li><i class="fas fa-check"></i> Registro para estudios y clientes</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20para%20Obras" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-tree"></i></div>
+          <h3>Ambiente & Paisaje</h3>
+          <p>Registros aéreos responsables para reservas naturales, proyectos ambientales, divulgación y turismo sostenible.</p>
+          <ul class="service-features"><li><i class="fas fa-check"></i> Vuelo de bajo impacto ambiental</li><li><i class="fas fa-check"></i> Documentación de biodiversidad</li><li><i class="fas fa-check"></i> Fotografía paisajística HDR</li></ul>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20servicio%20Ambiental%20y%20Paisaje" class="service-btn" target="_blank" rel="noopener noreferrer">Consultar <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-section" id="tecnologia">
+    <div class="container">
+      <div class="tech-grid">
+        <div>
+          <span class="section-tag">Tecnología & Seguridad</span>
+          <h2 class="section-title">Operaciones Seguras y Certificadas</h2>
+          <p class="section-desc">Cada vuelo es planificado cumpliendo estrictos estándares de seguridad operacional. Garantizamos tranquilidad legal y calidad técnica superior.</p>
+          <div class="tech-badges">
+            <div class="tech-box"><h4><i class="fas fa-microchip"></i> DJI Air 3S Tech</h4><p>Sensores omnidireccionales nocturnos y doble cámara.</p></div>
+            <div class="tech-box"><h4><i class="fas fa-file-contract"></i> Seguro VANT</h4><p>Póliza de responsabilidad civil vigente para operaciones.</p></div>
+          </div>
+        </div>
+        <div class="anac-card">
+          <div class="anac-header"><div class="anac-icon"><i class="fas fa-passport"></i></div><div><h3>Piloto Habilitado ANAC</h3><span>Administración Nacional de Aviación Civil</span></div></div>
+          <p>Contamos con la licencia oficial de operador y piloto de drones emitida por ANAC (Argentina), asegurando que todas las tomas aéreas se efectúen bajo las normativas vigentes.</p>
+          <a href="#contacto" class="btn btn-outline" style="width: 100%; justify-content: center;"><i class="fas fa-check-circle"></i> Solicitar Verificación & Presupuesto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cert-section" id="formacion">
+    <div class="container">
+      <div class="cert-block">
+        <div class="section-header">
+            <span class="section-tag">Formación Certificada</span>
+            <h2 class="section-title">Especialización en Agricultura de Precisión</h2>
+            <p class="section-desc">Además de la habilitación ANAC, completamos el programa de especialización en agro de Hub Education, alineado a los estándares de capacitación DJI UTC.</p>
+        </div>
+        <div class="cert-grid">
+          <article class="cert-card">
+            <a class="cert-thumb" href="img/certificado-fotogrametria-rgb.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Fotogrametría y Mapeo de Cultivos">
+              <img src="img/certificado-fotogrametria-rgb.webp" alt="Certificado de finalización: Fotogrametría y Mapeo de Cultivos con Drones, Hub Education" loading="lazy">
+            </a>
+            <div class="cert-body">
+              <div class="cert-meta"><span class="cert-chip">Cámara RGB</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Sep 2026</span></div>
+              <h3>Fotogrametría y Mapeo de Cultivos con Drones</h3>
+              <ul class="service-features">
+                <li><i class="fas fa-check"></i> Ortomosaicos, nube de puntos, DSM, DTM y DEM</li>
+                <li><i class="fas fa-check"></i> Planificación de GSD, solapamiento y tipo de vuelo</li>
+                <li><i class="fas fa-check"></i> Georreferenciación con RTK, PPK o puntos de apoyo</li>
+              </ul>
+              <div class="cert-foot"><span>Hub Education · Código <code>EyTxTHntgA</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+            </div>
+          </article>
+          <article class="cert-card">
+            <a class="cert-thumb" href="img/certificado-multiespectral.webp" target="_blank" rel="noopener" aria-label="Ver certificado de Análisis Multiespectral de Cultivos">
+              <img src="img/certificado-multiespectral.webp" alt="Certificado de finalización: Análisis Multiespectral de Cultivos con Drones, Hub Education y MetroAgro" loading="lazy">
+            </a>
+            <div class="cert-body">
+              <div class="cert-meta"><span class="cert-chip">Multiespectral</span><span class="cert-chip alt">10 horas</span><span class="cert-chip alt">Oct 2026</span></div>
+              <h3>Análisis Multiespectral de Cultivos con Drones</h3>
+              <ul class="service-features">
+                <li><i class="fas fa-check"></i> Índices NDVI, NDRE, OSAVI y lectura de firma espectral</li>
+                <li><i class="fas fa-check"></i> Zonas de manejo y mapas de prescripción en QGIS</li>
+                <li><i class="fas fa-check"></i> En alianza académica con MetroAgro</li>
+              </ul>
+              <div class="cert-foot"><span>Hub Education · Código <code>vIhIFLMKHN</code></span><a href="https://academy.hubeducation.com.ar/verify" target="_blank" rel="noopener noreferrer">Verificar <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact-section" id="contacto">
     <div class="container">
       <div class="contact-grid">
@@ -795,10 +801,11 @@
           <p>Visión Aérea Inteligente • Gualeguaychú, Entre Ríos</p>
         </div>
         <ul class="footer-links">
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#tecnologia">Seguridad ANAC</a></li>
           <li><a href="#galeria">Portafolio</a></li>
           <li><a href="#recorrido-360">Recorrido 360°</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#tecnologia">Seguridad ANAC</a></li>
+          <li><a href="#formacion">Certificados</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <div class="social-links">
