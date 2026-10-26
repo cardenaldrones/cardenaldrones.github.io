@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Loteo Muestra: vista aérea 360° con los lotes delimitados. Cardenal Drones.">
+<title>Loteo Muestra 360</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Barlow+Condensed:wght@500;600&display=swap">
+<style>
+/* Layout: full-bleed 360 viewer, floating title chip top-left, lot index panel docked right (bottom sheet on phones). Single dark look by choice. */
+:root{
+  --ink:#0f1512; --panel:rgba(15,21,18,.86); --line:rgba(255,255,255,.12);
+  --fg:#f3f5ef; --muted:#a9b3a6; --lot:#ffe415; --lot-ink:#1b1a05;
+  --display:"Poppins",system-ui,sans-serif; --data:"Barlow Condensed","Arial Narrow",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--ink);color:var(--fg);font-family:var(--display);overflow:hidden}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#view.drag{cursor:grabbing}
+.chip{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;backdrop-filter:blur(6px);max-width:calc(100% - 32px)}
+.chip h1{margin:0;font-size:16px;font-weight:700;letter-spacing:.02em;text-wrap:balance}
+.chip p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.panel{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));width:250px;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;backdrop-filter:blur(6px);display:flex;flex-direction:column;min-height:0}
+.panel header{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+.panel header span{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.panel button.tog{background:none;border:0;color:var(--fg);font:600 13px var(--display);cursor:pointer;padding:2px 4px}
+.list{overflow:auto;padding:6px 8px 10px;min-height:0}
+.grp{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:10px 4px 4px}
+.lot{display:grid;grid-template-columns:38px 1fr auto;gap:8px;align-items:center;width:100%;text-align:left;
+  background:none;border:0;border-radius:6px;padding:5px 4px;color:var(--fg);cursor:pointer;font-family:var(--data)}
+.lot:hover,.lot:focus-visible{background:rgba(255,228,21,.12);outline:none}
+.lot:focus-visible{box-shadow:0 0 0 2px var(--lot) inset}
+.lot b{background:var(--lot);color:var(--lot-ink);font:700 14px var(--display);border-radius:5px;text-align:center;padding:2px 0}
+.lot .d{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.lot .a{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.note{font-size:11px;color:var(--muted);padding:8px 12px 10px;border-top:1px solid var(--line);line-height:1.4}
+.ctrl{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px}
+.ctrl button{background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:8px;width:40px;height:40px;font:600 18px var(--display);cursor:pointer}
+.ctrl button:focus-visible{outline:2px solid var(--lot)}
+#err{position:fixed;inset:0;display:grid;place-items:center;color:var(--muted);font-size:14px;padding:0 24px;text-align:center}
+.views{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px;backdrop-filter:blur(6px);max-width:calc(100% - 32px)}
+.views button{background:none;border:0;color:var(--muted);font:500 13px var(--display);padding:8px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.views button[aria-pressed="true"]{background:var(--lot);color:var(--lot-ink);font-weight:700}
+.views button:focus-visible{outline:2px solid var(--lot)}
+.views .n{display:none}
+@media (max-width:900px){.views{left:max(16px,env(safe-area-inset-left,0px));transform:none}}
+@media (max-width:640px){
+  .views{top:calc(84px + env(safe-area-inset-top,0px));bottom:auto;left:auto;right:max(16px,env(safe-area-inset-right,0px))}
+  .views .l{display:none}.views .n{display:inline}
+  .panel{top:auto;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-height:42%}
+  .panel.closed .list,.panel.closed .note{display:none}
+  .ctrl{bottom:auto;top:calc(84px + env(safe-area-inset-top,0px))}
+}
+</style>
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<canvas id="view" aria-label="Vista 360 del loteo, arrastrá para girar"></canvas>
+<div id="err" hidden></div>
+<div class="chip"><h1>Loteo Muestra</h1><p>Vista aérea 360°</p></div>
+<nav class="views" id="views" aria-label="Puntos de vista" hidden></nav>
+<div class="ctrl">
+  <button id="zin" aria-label="Acercar">+</button><button id="zout" aria-label="Alejar">−</button><button id="home" aria-label="Volver a la vista inicial">⌂</button>
+</div>
+<aside class="panel" id="panel">
+  <header><span>Lotes · tocá para ubicar</span><button class="tog" id="tog" aria-expanded="true">Ocultar</button></header>
+  <div class="list" id="list"></div>
+  <div class="note">Medidas en metros (fondo × frente). Ubicación de las líneas aproximada; no reemplaza el plano de mensura.</div>
+</aside>
+<script>
+const LOTS=[{"m":"O","n":"1","sz":"30X15","m2":450,"yaw":-45.2,"pitch":-49.0},{"m":"O","n":"2","sz":"30X15","m2":450,"yaw":-50.0,"pitch":-46.3},{"m":"O","n":"3","sz":"30X15","m2":450,"yaw":-54.0,"pitch":-43.7},{"m":"O","n":"4","sz":"60X15","m2":900,"yaw":-52.7,"pitch":-39.7},{"m":"O","n":"5","sz":"60X15","m2":900,"yaw":-55.7,"pitch":-37.6},{"m":"O","n":"6","sz":"60X15","m2":900,"yaw":-58.3,"pitch":-35.6},{"m":"O","n":"7","sz":"60X27","m2":1620,"yaw":-61.4,"pitch":-33.1},{"m":"O","n":"14","sz":"32X15","m2":480,"yaw":-27.1,"pitch":-36.7},{"m":"O","n":"15","sz":"45X15","m2":675,"yaw":-35.6,"pitch":-38.7},{"m":"O","n":"16","sz":"45X15","m2":675,"yaw":-39.0,"pitch":-40.8},{"m":"O","n":"17","sz":"45X15","m2":675,"yaw":-42.9,"pitch":-43.0},
+{"m":"E","n":"3","sz":"30X15","m2":450,"yaw":5.1,"pitch":-57.1},{"m":"E","n":"5","sz":"62X15","m2":930,"yaw":-8.9,"pitch":-52.6},{"m":"E","n":"9","sz":"45X15","m2":675,"yaw":-23.1,"pitch":-48.4},{"m":"E","n":"10","sz":"45X15","m2":675,"yaw":-20.6,"pitch":-45.1},{"m":"E","n":"11","sz":"45X15","m2":675,"yaw":-18.6,"pitch":-42.1},{"m":"E","n":"12","sz":"30X15","m2":450,"yaw":-21.1,"pitch":-37.5},{"m":"E","n":"19","sz":"30X15","m2":450,"yaw":13.4,"pitch":-38.4},{"m":"E","n":"20","sz":"45X15","m2":675,"yaw":9.8,"pitch":-43.0},{"m":"E","n":"21","sz":"45X15","m2":675,"yaw":11.0,"pitch":-46.2},{"m":"E","n":"22","sz":"47X15","m2":705,"yaw":12.1,"pitch":-49.8}];
+const SCENES=[{"src": "pano1.jpg", "label": "Frente", "home": [-22, -38], "lots": {"O1": [-45.2, -49.0], "O2": [-50.0, -46.3], "O3": [-54.0, -43.7], "O17": [-42.9, -43.0], "O16": [-39.0, -40.8], "O15": [-35.6, -38.7], "O14": [-27.1, -36.7], "O4": [-52.7, -39.7], "O5": [-55.7, -37.6], "O6": [-58.3, -35.6], "O7": [-61.4, -33.1], "E12": [-21.1, -37.5], "E11": [-18.6, -42.1], "E10": [-20.6, -45.1], "E9": [-23.1, -48.4], "E5": [-8.9, -52.6], "E3": [5.1, -57.1], "E22": [12.1, -49.8], "E21": [11.0, -46.2], "E20": [9.8, -43.0], "E19": [13.4, -38.4]}}];
+let cur=0;
+const GROUPS={O:"Manzana izquierda",E:"Manzana derecha"};
+const list=document.getElementById('list');
+for(const g of ["O","E"]){
+  const h=document.createElement('div');h.className='grp';h.textContent=GROUPS[g];list.appendChild(h);
+  for(const l of LOTS.filter(x=>x.m===g)){
+    const b=document.createElement('button');b.className='lot';
+    b.innerHTML=`<b>${l.n}</b><span class="d">${l.sz.replace('X',' × ')}</span><span class="a">${l.m2.toLocaleString('es-AR')} m²</span>`;
+    b.onclick=()=>{const v=SCENES[cur].lots[l.m+l.n];flyTo(v[0],v[1],45)};list.appendChild(b);
+  }
+}
+const panel=document.getElementById('panel'),tog=document.getElementById('tog');
+tog.onclick=()=>{const c=panel.classList.toggle('closed');tog.textContent=c?'Ver lotes':'Ocultar';tog.setAttribute('aria-expanded',!c);
+  if(!c&&innerWidth>640){} };
+if(innerWidth<=640){panel.classList.add('closed');tog.textContent='Ver lotes';tog.setAttribute('aria-expanded','false')}
+
+const HOME={yaw:-22,pitch:-38,fov:90};
+const homeFov=()=>innerWidth<=640?80:90;
+let st={...HOME};if(innerWidth<=640){st.fov=80}
+const cv=document.getElementById('view');
+const gl=cv.getContext('webgl',{antialias:false});
+function fail(m){const e=document.getElementById('err');e.textContent=m;e.hidden=false}
+if(!gl){fail('Este navegador no puede mostrar la vista 360 (WebGL desactivado).')}
+const vs=`attribute vec2 p;varying vec2 q;void main(){q=p;gl_Position=vec4(p,0.,1.);}`;
+const fs=`precision highp float;varying vec2 q;uniform sampler2D t;uniform float yaw,pitch,tf,asp;
+void main(){vec3 v=normalize(vec3(q.x*tf*asp,q.y*tf,1.));
+float cp=cos(pitch),sp=sin(pitch);vec3 a=vec3(v.x,v.y*cp+v.z*sp,-v.y*sp+v.z*cp);
+float cy=cos(yaw),sy=sin(yaw);vec3 d=vec3(a.x*cy+a.z*sy,a.y,-a.x*sy+a.z*cy);
+float lon=atan(d.x,d.z),lat=asin(clamp(d.y,-1.,1.));
+gl_FragColor=texture2D(t,vec2(lon/6.2831853+.5,.5-lat/3.1415927));}`;
+let U={},ready=false;
+if(gl){
+  const sh=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+  const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+  const bf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  for(const k of['yaw','pitch','tf','asp'])U[k]=gl.getUniformLocation(pr,k);
+  window.TX=gl.createTexture();
+}
+const cache={};
+function loadScene(i){cur=i;document.querySelectorAll('#views button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  const sc=SCENES[i];HOME.yaw=sc.home[0];HOME.pitch=sc.home[1];
+  const use=img=>{if(i!==cur)return;gl.bindTexture(gl.TEXTURE_2D,TX);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img);gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    ready=true;cancelAnimationFrame(anim);setView(HOME.yaw,HOME.pitch,homeFov())};
+  if(cache[i]&&cache[i].complete)return use(cache[i]);
+  const img=cache[i]=new Image();img.onload=()=>use(img);img.onerror=()=>fail('No se pudo cargar la imagen 360.');img.src=sc.src}
+const vw=document.getElementById('views');
+SCENES.forEach((s,i)=>{const b=document.createElement('button');b.innerHTML=`<span class="n">${i+1}</span><span class="l">${s.label}</span>`;b.title=s.label;b.setAttribute('aria-label',s.label);b.onclick=()=>loadScene(i);vw.appendChild(b)});
+function size(){const r=Math.min(devicePixelRatio||1,2);cv.width=innerWidth*r;cv.height=innerHeight*r;if(gl)gl.viewport(0,0,cv.width,cv.height);draw()}
+function draw(){if(!ready)return;const R=Math.PI/180;
+  gl.uniform1f(U.yaw,st.yaw*R);gl.uniform1f(U.pitch,st.pitch*R);
+  const asp=cv.width/cv.height;gl.uniform1f(U.asp,asp);gl.uniform1f(U.tf,Math.tan(st.fov*R/2)/Math.max(asp,1));
+  gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function setView(y,p,f){st.yaw=((y+540)%360)-180;st.pitch=clamp(p,-89,89);st.fov=clamp(f,25,115);draw()}
+let anim=null;
+function flyTo(y,p,f){cancelAnimationFrame(anim);const s={...st};let dy=((y-s.yaw+540)%360)-180;const t0=performance.now();
+  const dur=matchMedia('(prefers-reduced-motion: reduce)').matches?0:900;
+  const step=n=>{const k=dur?Math.min(1,(n-t0)/dur):1,e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    setView(s.yaw+dy*e,s.pitch+(p-s.pitch)*e,s.fov+(f-s.fov)*e);if(k<1)anim=requestAnimationFrame(step)};anim=requestAnimationFrame(step)}
+const pts=new Map();let pinch=0;
+cv.addEventListener('pointerdown',e=>{cancelAnimationFrame(anim);cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.classList.add('drag')});
+cv.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const o=pts.get(e.pointerId);
+  if(pts.size===1){const k=st.fov/cv.clientHeight*(cv.width/cv.height>1?1:cv.width/cv.height);
+    setView(st.yaw-(e.clientX-o.x)*k,st.pitch+(e.clientY-o.y)*k,st.fov)}
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===2){const [a,b]=[...pts.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch)setView(st.yaw,st.pitch,st.fov*pinch/d);pinch=d}});
+const up=e=>{pts.delete(e.pointerId);pinch=0;if(!pts.size)cv.classList.remove('drag')};
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{e.preventDefault();setView(st.yaw,st.pitch,st.fov*Math.exp(e.deltaY*0.0012))},{passive:false});
+document.getElementById('zin').onclick=()=>flyTo(st.yaw,st.pitch,st.fov*0.75);
+document.getElementById('zout').onclick=()=>flyTo(st.yaw,st.pitch,st.fov/0.75);
+document.getElementById('home').onclick=()=>flyTo(HOME.yaw,HOME.pitch,homeFov());
+addEventListener('keydown',e=>{const m={ArrowLeft:[-5,0],ArrowRight:[5,0],ArrowUp:[0,5],ArrowDown:[0,-5]}[e.key];if(m&&e.target===document.body){setView(st.yaw+m[0],st.pitch+m[1],st.fov)}});
+addEventListener('resize',size);size();if(gl)loadScene(0);
+</script>
+</body>
+</html>
