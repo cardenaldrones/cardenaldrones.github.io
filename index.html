@@ -181,6 +181,32 @@
     .lightbox.single .lightbox-prev, .lightbox.single .lightbox-next, .lightbox.single .lightbox-counter { display: none; }
     @media (max-width: 768px) { .lightbox { padding: 4rem 0.5rem 6rem; } .lightbox-img { max-width: 100%; max-height: calc(100vh - 12rem); max-height: calc(100dvh - 12rem); } .lightbox-prev, .lightbox-next { top: auto; bottom: 1.25rem; transform: none; } .lightbox-prev { left: calc(50% - 60px); } .lightbox-next { right: calc(50% - 60px); } }
 
+    /* Novedad: Recorrido 360 */
+    .vr-section { padding: 6.5rem 0; background: #ffffff; border-bottom: 1px solid var(--border-color); }
+    .new-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-light); border: 1px solid rgba(217, 4, 41, 0.25); color: var(--primary); padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+    .new-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.5); animation: newPulse 1.8s infinite; }
+    @keyframes newPulse { 0% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.45); } 70% { box-shadow: 0 0 0 9px rgba(217, 4, 41, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0); } }
+    .vr-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+    .vr-preview { position: relative; display: block; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow-lg); aspect-ratio: 16 / 10; background: #0f172a; text-decoration: none; }
+    .vr-preview img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease-out; }
+    .vr-preview:hover img { transform: scale(1.06) translateX(-1.5%); }
+    .vr-preview::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.05) 45%, transparent 100%); pointer-events: none; }
+    .vr-badge-360 { position: absolute; top: 1.1rem; left: 1.1rem; z-index: 2; background: rgba(255, 255, 255, 0.95); color: var(--text-main); font-family: var(--font-heading); font-weight: 700; font-size: 1rem; padding: 0.4rem 0.9rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 0.45rem; box-shadow: var(--shadow-sm); }
+    .vr-badge-360 i { color: var(--primary); }
+    .vr-play { flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); color: #ffffff; font-size: 0.9rem; font-weight: 700; padding: 0.6rem 1.15rem; border-radius: 50px; box-shadow: 0 8px 24px rgba(217, 4, 41, 0.45); transition: var(--transition); }
+    .vr-preview:hover .vr-play { transform: translateY(-2px); }
+    .vr-caption { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.2rem; z-index: 2; color: #ffffff; display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }
+    .vr-cap-text span { display: block; font-size: 0.75rem; color: #ff8fa3; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .vr-cap-text h4 { font-size: 1.15rem; font-weight: 600; color: #ffffff; line-height: 1.3; }
+    .vr-uses { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.5rem 0 1.75rem; }
+    .vr-use { display: inline-flex; align-items: center; gap: 0.55rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 50px; padding: 0.5rem 1.1rem; font-size: 0.9rem; font-weight: 700; color: var(--text-main); }
+    .vr-use i { color: var(--primary); }
+    .vr-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .vr-content .section-title { margin-bottom: 1rem; }
+    @media (max-width: 992px) { .vr-grid { grid-template-columns: 1fr; gap: 2.5rem; } .vr-content { text-align: center; } .vr-uses, .vr-actions { justify-content: center; } .vr-content .service-features { align-items: center; } }
+    @media (max-width: 768px) { .vr-caption { left: 1rem; right: 1rem; bottom: 1rem; } .vr-cap-text h4 { font-size: 1rem; } .vr-play { padding: 0.55rem 0.95rem; font-size: 0.85rem; } }
+    @media (max-width: 420px) { .vr-cap-text h4 { display: none; } }
+
     /* Contacto */
     .contact-section { padding: 6.5rem 0; background: #ffffff; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: start; }
@@ -258,6 +284,7 @@
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#tecnologia">Tecnología & Seguridad</a></li>
         <li><a href="#galeria">Portafolio</a></li>
+        <li><a href="#recorrido-360">Recorrido 360°</a></li>
         <li><a href="#contacto">Contacto</a></li>
         <li><a href="#contacto" class="nav-cta-btn">Cotizar Vuelo</a></li>
       </ul>
@@ -631,6 +658,38 @@
     </div>
   </section>
 
+  <section class="vr-section" id="recorrido-360">
+    <div class="container vr-grid">
+      <a href="loteo-muestra/" class="vr-preview" aria-label="Abrir el recorrido 360 del loteo de muestra">
+        <img src="img/recorrido-360.webp" alt="Vista aérea de un loteo con los lotes delimitados en amarillo, numerados y con sus medidas" loading="lazy">
+        <span class="vr-badge-360"><i class="fas fa-street-view"></i> 360°</span>
+        <div class="vr-caption">
+          <div class="vr-cap-text"><span>Loteo de muestra</span><h4>Lotes numerados con medidas</h4></div>
+          <span class="vr-play"><i class="fas fa-play"></i> Iniciar recorrido</span>
+        </div>
+      </a>
+      <div class="vr-content">
+        <div class="new-pill"><span class="new-dot"></span> Novedad</div>
+        <h2 class="section-title">Recorrido 360° Inmersivo</h2>
+        <p class="section-desc">Tus clientes recorren la propiedad desde el aire, girando la vista en cualquier dirección desde el celular o la computadora. Para loteos, marcamos cada lote con su número y sus medidas sobre la imagen real.</p>
+        <div class="vr-uses">
+          <span class="vr-use"><i class="fas fa-map"></i> Loteos</span>
+          <span class="vr-use"><i class="fas fa-house"></i> Casas</span>
+          <span class="vr-use"><i class="fas fa-tractor"></i> Campos</span>
+        </div>
+        <ul class="service-features">
+          <li><i class="fas fa-check"></i> Lotes delimitados, numerados y con medidas</li>
+          <li><i class="fas fa-check"></i> Se comparte con un link, sin instalar nada</li>
+          <li><i class="fas fa-check"></i> Listo para la web de la inmobiliaria y redes</li>
+        </ul>
+        <div class="vr-actions">
+          <a href="loteo-muestra/" class="btn btn-primary"><i class="fas fa-vr-cardboard"></i> Ver Recorrido de Muestra</a>
+          <a href="https://wa.me/5491162595448?text=Hola,%20me%20interesa%20el%20Recorrido%20360%C2%B0%20inmersivo" class="btn btn-outline" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Consultar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact-section" id="contacto">
     <div class="container">
       <div class="contact-grid">
@@ -652,7 +711,7 @@
               <div class="form-group"><label class="form-label" for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" class="form-control" required></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control" required><option value="" selected disabled>Seleccioná un servicio</option><option value="Fotogrametría y Relevamiento 3D">Fotogrametría y Relevamiento 3D</option><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Otro">Otro requerimiento</option></select></div>
+              <div class="form-group"><label class="form-label" for="servicio">Tipo de Servicio</label><select id="servicio" class="form-control" required><option value="" selected disabled>Seleccioná un servicio</option><option value="Fotogrametría y Relevamiento 3D">Fotogrametría y Relevamiento 3D</option><option value="Eventos y Producción Audiovisual">Eventos y Audiovisual</option><option value="Agro e Industria">Agro e Industria</option><option value="Seguimiento de Obras">Obras y Bienes Raíces</option><option value="Relevamiento Ambiental">Ambiente y Paisaje</option><option value="Recorrido 360 inmersivo">Recorrido 360° inmersivo</option><option value="Otro">Otro requerimiento</option></select></div>
               <div class="form-group"><label class="form-label" for="ubicacion">Localidad del Proyecto</label><input type="text" id="ubicacion" class="form-control" placeholder="Ej: Gualeguaychú"></div>
             </div>
             <div class="form-group"><label class="form-label" for="mensaje">Detalles del Proyecto</label><textarea id="mensaje" class="form-control" placeholder="Describí brevemente qué necesitás filmar o fotografiar..."></textarea></div>
@@ -674,6 +733,7 @@
           <li><a href="#servicios">Servicios</a></li>
           <li><a href="#tecnologia">Seguridad ANAC</a></li>
           <li><a href="#galeria">Portafolio</a></li>
+          <li><a href="#recorrido-360">Recorrido 360°</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <div class="social-links">
